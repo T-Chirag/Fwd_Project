@@ -1,27 +1,54 @@
-import React from 'react'
-import "./NavBar.css"
+import React, { useState, useEffect } from "react";
+import "./NavBar.css";
 
 function NavBar() {
+  const [showNavBar, setShowNavBar] = useState(true); // state to control navbar visibility
+  const menuItems = [
+    { id: 1, label: "HOME", link: "#home" },
+    { id: 2, label: "BOOKS", link: "#books" },
+    { id: 3, label: "GADGETS", link: "#gadgets" },
+    { id: 4, label: "SHOES", link: "#shoes" },
+    { id: 5, label: "OTHERS", link: "#others" },
+    { id: 6, label: "LOG IN", link: "#login" },
+  ];
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowNavBar(false); // hide navbar when scrolling down
+      } else {
+        setShowNavBar(true); // show navbar when scrolling up
+      }
+      lastScrollY = window.scrollY; // update last scroll position
+    };
+
+    window.addEventListener("scroll", handleScroll); // attach scroll listener
+
+    // Cleanup listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <>
-        <div 
-        className='m-1 bg-white/70 backdrop-blur-lg rounded-full h-12 flex flex-row justify-between items-center'>
-            
-            <button
-            className='pl-3 pr-3 pt-2 pb-2 w-18 ml-1 hover:bg-slate-900 hover:text-white  hover:rounded-full transition-nav-bar text-black font-semibold'>HOME</button>
-            <button
-            className='pl-3 pr-3 pt-2 pb-2 w-18  hover:bg-slate-900 hover:text-white text-black hover:rounded-full transition-nav-bar font-semibold'>BOOKS</button>
-            <button
-            className='pl-3 pr-3 pt-2 pb-2 w-18  hover:bg-slate-900 hover:text-white text-black hover:rounded-full transition-nav-bar font-semibold'>GADGETS</button>
-            <button
-            className='pl-3 pr-3 pt-2 pb-2 w-18  hover:bg-slate-900 hover:text-white text-black hover:rounded-full transition-nav-bar font-semibold'>SHOES</button>
-            <button
-            className='pl-3 pr-4 pt-2 pb-2 w-18  hover:bg-slate-900 hover:text-white text-black hover:rounded-full transition-nav-bar font-semibold'>OTHERS</button>
-            <button
-            className='pl-3 pr-3 pt-2 pb-2 w-18 mr-1 hover:bg-slate-900 hover:text-white text-black hover:rounded-full transition-nav-bar font-semibold'>LOG IN</button>
-        </div>
-    </>
-  )
+    <nav
+      className={`text-white m-1 bg-black/30 backdrop-blur-lg rounded-full h-12 flex items-center justify-between px-3 shadow-md transition-transform duration-300 ${
+        showNavBar ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      {menuItems.map((item) => (
+        <a
+          key={item.id}
+          href={item.link}
+          className=" px-4 py-2 font-semibold text-white hover:bg-slate-900 hover:text-white hover:rounded-full rounded-full transition duration-300"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  );
 }
 
-export default NavBar
+export default NavBar;
