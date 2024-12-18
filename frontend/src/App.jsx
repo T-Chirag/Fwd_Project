@@ -19,8 +19,8 @@ function App() {
   ];
 
   return (
-    <div className='relative h-screen w-screen bg-black -z-50'>
-    <div className='absolute top-7 flex flex-row justify-between w-screen pl-7 pr-7'>
+    <div className='relative h-screen w-screen bg-black'>
+    <div className='absolute top-7 flex flex-row justify-between w-screen pl-7 pr-7 z-50 bg-black/30'>
       <div 
       className='text-white flex flex-row items-center text-2xl'>
       <img 
@@ -28,17 +28,18 @@ function App() {
         src={websiteLogo}
         alt="website-logo"
       />Swapify</div>
-      {/* <div
-        className=' w-96'>
+      <div
+        className=' w-96 z-50 shadow-2xl rounded-full'>
         <SearchBar />
 
-        </div> */}
+        </div>
 
-        <div className='w-[500px] shadow-xl rounded-full'>
+        <div className='w-[500px] shadow-2xl rounded-full'>
           <NavBar />
         </div>
     </div>
-    <div>
+    <div 
+    className=''>
       <Carousel images={images} height="500px" />
     </div>
     </div>
