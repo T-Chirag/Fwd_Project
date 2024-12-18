@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./NavBar.css";
+import "../NavBar.css";
 
 function NavBar() {
   const [showNavBar, setShowNavBar] = useState(true); // state to control navbar visibility
@@ -34,7 +34,7 @@ function NavBar() {
 
   return (
     <nav
-      className={`text-white m-1 bg-black/30 backdrop-blur-lg rounded-full h-12 flex items-center justify-between px-3 shadow-md transition-transform duration-300 ${
+      className={`text-white m-1 bg-black/30 backdrop-blur-2xl rounded-full h-12 flex items-center justify-between px-3 shadow-md transition-transform duration-300 ${
         showNavBar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -42,9 +42,11 @@ function NavBar() {
         <a
           key={item.id}
           href={item.link}
-          className=" px-4 py-2 font-semibold text-white hover:bg-slate-900 hover:text-white hover:rounded-full rounded-full transition duration-300"
+          className="group relative px-4 py-1 font-semibold text-white rounded-full transition duration-300"
         >
           {item.label}
+          {/* Underline Animation */}
+          <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-1/2 group-hover:-translate-x-1/2 ease-out"></span>
         </a>
       ))}
     </nav>

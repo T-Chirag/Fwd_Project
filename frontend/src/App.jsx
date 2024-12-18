@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import NavBar from "./NavBar";
+import NavBar from "./components/NavBar";
 import websiteLogo from "/src/assets/Swapify-logo.png";
-import Carousel from "./Carousel";
-import Recommendations from "./Recomendations";
-import Footer from "./Footer";
+import Carousel from "./components/Carousel";
+import Recommendations from "./components/Recomendations";
+import Footer from "./components/Footer";
 
 function App() {
   const images = [
@@ -49,7 +49,7 @@ function App() {
     <div className="relative h-full w-screen bg-black text-white">
       {/* Navbar */}
       <header
-        className={`fixed top-0 left-0 w-full z-50 bg-slate/30 backdrop-blur-2xl shadow-md transition-transform duration-300 ${
+        className={`fixed top-0 left-0 w-full z-50 bg-slate/50 backdrop-blur-3xl shadow-md transition-transform duration-300 ${
           showNavBar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
