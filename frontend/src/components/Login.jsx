@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../index.css";
+import GoogleLoginButton from './GoogleLoginButton.jsx'
 
 function Login() {
   const [activeButton, setActiveButton] = useState("login"); // "login" is active by default
@@ -32,10 +33,10 @@ function Login() {
 
       {/* Right Side Content */}
       <div className="w-5/12 h-[85%] rounded-bl-[100px] bg-white p-8 overflow-hidden relative">
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full flex justify-center">
           {activeButton === "login" ? (
             <div
-              className="absolute inset-0 animate-fadeIn transition-transform transform translate-x-0 duration-500"
+              className="absolute inset-0 animate-fadeIn transition-transform transform translate-x-0 duration-500 flex flex-col top-12 items-center"
               key="login"
             >
               {/* Login Form */}
@@ -45,7 +46,7 @@ function Login() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-96 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               <div className="mb-6">
@@ -53,7 +54,7 @@ function Login() {
                 <input
                   type="password"
                   placeholder="Enter your password"
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-96 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               <a
@@ -62,13 +63,13 @@ function Login() {
               >
                 Forget Password?
               </a>
-              <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
+              <button className="w-96 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
                 LOGIN
               </button>
             </div>
           ) : (
             <div
-              className="absolute inset-0 animate-fadeIn transition-transform transform translate-x-0 duration-500"
+              className="absolute inset-0 animate-fadeIn transition-transform transform translate-x-0 duration-500 flex flex-col top-12 items-center"
               key="signup"
             >
               {/* Signup Form */}
@@ -78,7 +79,7 @@ function Login() {
                 <input
                   type="text"
                   placeholder="Enter your username"
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-96 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               <div className="mb-4">
@@ -86,7 +87,7 @@ function Login() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-96 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
               <div className="mb-6">
@@ -94,12 +95,14 @@ function Login() {
                 <input
                   type="password"
                   placeholder="Enter your password"
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-96 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
               </div>
-              <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
+              <button className="w-96 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
                 SIGN UP
               </button>
+
+              <GoogleLoginButton />
             </div>
           )}
         </div>
