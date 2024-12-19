@@ -11,6 +11,7 @@ function NavBar() {
     { id: 4, label: "SHOES", link: "/products?category=shoes" },
     { id: 5, label: "OTHERS", link: "/others" },
     { id: 6, label: "LOG IN", link: "/login" },
+    
   ];
 
   useEffect(() => {

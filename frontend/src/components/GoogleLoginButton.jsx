@@ -1,33 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const GoogleLoginButton = () => {
-    useEffect(() => {
-        /* Initialize the Google Sign-In button */
-        window.google.accounts.id.initialize({
-            client_id: 'YOUR_CLIENT_ID',
-            callback: handleCredentialResponse,
-        });
+  // Handle the login response
+  const handleCredentialResponse = (response) => {
+    console.log("Encoded JWT ID token:", response.credential);
 
-        /* Render the button */
-        window.google.accounts.id.renderButton(
-            document.getElementById('google-login-button'),
-            { theme: 'outline', size: 'large' } // Customize button options
-        );
-    }, []);
+    // You can send this token to your backend for validation
+  };
 
-    /* Handle the login response */
-    const handleCredentialResponse = (response) => {
-        console.log('Encoded JWT ID token:', response.credential);
+  useEffect(() => {
+    // Ensure the Google API is loaded before trying to initialize
+    if (window.google && window.google.accounts) {
+      // Initialize the Google Sign-In button
+      window.google.accounts.id.initialize({
+        client_id: "YOUR_CLIENT_ID", // Replace with your Google client ID
+        callback: handleCredentialResponse,
+      });
 
-        // You can send this token to your backend for validation
-    };
+      // Render the button
+      window.google.accounts.id.renderButton(
+        document.getElementById("google-login-button"),
+        { theme: "outline", size: "large" } // Customize button options
+      );
+    } else {
+      console.error("Google API not loaded. Make sure you have included the script.");
+    }
+  }, []);
 
-    return (
-        <div>
-            <h1>Google Login</h1>
-            <div id="google-login-button"></div>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Google Login</h1>
+      {/* Google login button container */}
+      <div id="google-login-button"></div>
+    </div>
+  );
 };
 
 export default GoogleLoginButton;
