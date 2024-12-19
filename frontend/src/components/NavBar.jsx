@@ -4,12 +4,12 @@ import "../NavBar.css";
 function NavBar() {
   const [showNavBar, setShowNavBar] = useState(true); // state to control navbar visibility
   const menuItems = [
-    { id: 1, label: "HOME", link: "#home" },
-    { id: 2, label: "BOOKS", link: "#books" },
-    { id: 3, label: "GADGETS", link: "#gadgets" },
-    { id: 4, label: "SHOES", link: "#shoes" },
-    { id: 5, label: "OTHERS", link: "#others" },
-    { id: 6, label: "LOG IN", link: "#login" },
+    { id: 1, label: "HOME", link: "/" },
+    { id: 2, label: "BOOKS", link: "/books" },
+    { id: 3, label: "GADGETS", link: "/gadgets" },
+    { id: 4, label: "SHOES", link: "/shoes" },
+    { id: 5, label: "OTHERS", link: "/others" },
+    { id: 6, label: "LOG IN", link: "/login" },
   ];
 
   useEffect(() => {
