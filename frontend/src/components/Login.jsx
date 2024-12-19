@@ -66,7 +66,11 @@ function Login() {
               <button className="w-96 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
                 LOGIN
               </button>
+              <div> 
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=g_mobiledata" />
+              </div>
             </div>
+            
           ) : (
             <div
               className="absolute inset-0 animate-fadeIn transition-transform transform translate-x-0 duration-500 flex flex-col top-12 items-center"
@@ -102,7 +106,8 @@ function Login() {
                 SIGN UP
               </button>
 
-              {/* <GoogleLoginButton /> */}
+
+              
             </div>
           )}
         </div>
