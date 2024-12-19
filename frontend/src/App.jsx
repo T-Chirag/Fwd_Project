@@ -8,9 +8,9 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
-import websiteLogo from "/src/assets/Swapify-logo.png";
+import websiteLogo from "./assets/Swapify-logo.png";
 import { Link } from 'react-router-dom';
-import CartPage from "./pages/CartPage";
+
 
 function App() {
   const [showNavBar, setShowNavBar] = useState(true);
@@ -76,7 +76,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/products" element={<ProductListing />} />
             <Route path="/products/:id" element={<ProductDetails />} />
-            <Route path="/cart" element={<CartPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

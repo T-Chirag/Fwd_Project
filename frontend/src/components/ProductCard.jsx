@@ -3,12 +3,6 @@ import React from "react";
 const ProductCard = ({ product }) => {
   return (
     <div className="relative bg-white border rounded-lg shadow-md overflow-hidden">
-      {/* Badge */}
-      {/* {product.badge && (
-        <div className="absolute top-0 left-0 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-br-lg z-10">
-          {product.badge}
-        </div>
-      )} */}
 
       {/* Image with Scale Effect */}
       <div className="h-96 bg-gray-100 flex justify-center items-center overflow-hidden">
