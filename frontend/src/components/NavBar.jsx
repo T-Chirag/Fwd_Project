@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link for routing
 import "../NavBar.css";
 
 function NavBar() {
   const [showNavBar, setShowNavBar] = useState(true); // state to control navbar visibility
   const menuItems = [
     { id: 1, label: "HOME", link: "/" },
-    { id: 2, label: "BOOKS", link: "/books" },
-    { id: 3, label: "GADGETS", link: "/gadgets" },
-    { id: 4, label: "SHOES", link: "/shoes" },
+    { id: 2, label: "BOOKS", link: "/products?category=books" },
+    { id: 3, label: "GADGETS", link: "/products?category=gadgets" },
+    { id: 4, label: "SHOES", link: "/products?category=shoes" },
     { id: 5, label: "OTHERS", link: "/others" },
     { id: 6, label: "LOG IN", link: "/login" },
   ];
@@ -39,15 +40,15 @@ function NavBar() {
       }`}
     >
       {menuItems.map((item) => (
-        <a
+        <Link
           key={item.id}
-          href={item.link}
+          to={item.link} // Use `to` instead of `href` for React Router
           className="group relative px-4 py-1 font-semibold text-white rounded-full transition duration-300"
         >
           {item.label}
           {/* Underline Animation */}
           <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-1/2 group-hover:-translate-x-1/2 ease-out"></span>
-        </a>
+        </Link>
       ))}
     </nav>
   );
