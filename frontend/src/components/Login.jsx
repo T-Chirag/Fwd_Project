@@ -102,7 +102,7 @@ function Login() {
                 SIGN UP
               </button>
 
-              <GoogleLoginButton />
+              {/* <GoogleLoginButton /> */}
             </div>
           )}
         </div>
