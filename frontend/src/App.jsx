@@ -47,7 +47,7 @@ function App() {
     <Router>
       <div className="relative h-full w-screen bg-black text-white">
         <header
-          className={`fixed top-0 left-0 w-full z-50 bg-slate/50 backdrop-blur-3xl shadow-md transition-transform duration-300 ${
+          className={`fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-3xl shadow-md transition-transform duration-300 ${
             showNavBar ? "translate-y-0" : "-translate-y-full"
           }`}
         >

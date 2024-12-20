@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 import "../NavBar.css";
+import Dropdown from "./DropDown";
 
 function NavBar() {
   const [showNavBar, setShowNavBar] = useState(true); // state to control navbar visibility
@@ -10,7 +11,7 @@ function NavBar() {
     { id: 3, label: "GADGETS", link: "/products?category=gadgets" },
     { id: 4, label: "SHOES", link: "/products?category=shoes" },
     { id: 5, label: "OTHERS", link: "/others" },
-    { id: 6, label: "LOG IN", link: "/login" },
+    { id: 6, label: <Dropdown />, link: "/login" },
     
   ];
 
@@ -56,3 +57,6 @@ function NavBar() {
 }
 
 export default NavBar;
+
+
+

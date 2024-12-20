@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 
 function Carousel({ images, height }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,11 +15,23 @@ function Carousel({ images, height }) {
     );
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      nextSlide();
+    }, 5000);
+  
+    // Cleanup function to clear the timeout on every render
+    return () => clearTimeout(timer);
+  });
+  
+
   return (
     <div
       className="relative w-screen overflow-hidden z-10"
       style={{ height: height }}
-    >
+      
+          >
+      
       {/* Image Slider */}
       <div
         className="flex transition-transform duration-500 ease-in-out"
