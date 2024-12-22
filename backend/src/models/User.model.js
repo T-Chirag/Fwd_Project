@@ -1,5 +1,6 @@
 // Import mongoose to define schemas and interact with MongoDB
-const mongoose = require('mongoose');
+
+import mongoose from 'mongoose';
 
 // Define a schema for the User model
 const userSchema = new mongoose.Schema({
@@ -34,4 +35,4 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Export the model to use it in other parts of the application
-module.exports = User;
+export default User;
