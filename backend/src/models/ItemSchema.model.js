@@ -9,6 +9,11 @@ const itemSchema = new mongoose.Schema({
     required: true,     // This field is mandatory
     trim: true          // Automatically removes whitespace from the beginning and end
   },
+  image:{
+    type: String,
+    required: true,
+    trim: true
+  },
   // Detailed description of the item
   description: {
     type: String,
@@ -36,6 +41,14 @@ const itemSchema = new mongoose.Schema({
   listedAt: {
     type: Date,
     default: Date.now   // Default value is the current date and time
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
   }
 });
 

@@ -3,6 +3,13 @@ const mongoose = require('mongoose');
 
 // Define a schema for the Trade model
 const tradeSchema = new mongoose.Schema({
+
+  //Trade id
+  tradeId: {
+    type: String,
+    required: true,
+    unique: true
+  },
   // The item being offered for trade
   offeredItem: {
     type: mongoose.Schema.Types.ObjectId, // References the Item model
