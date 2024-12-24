@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
     unique: true,       // Ensures no two users can have the same username
     trim: true
   },
+  //Rating 
+  rating:{
+    type: Number,
+    default: 0
+  },
+
   // User's email address
   email: {
     type: String,
@@ -40,6 +46,17 @@ const userSchema = new mongoose.Schema({
 
 // Create a model using the schema
 const User = mongoose.model('User', userSchema);
+
+userSchema.methods.generateAuthToken = function() {
+  const token = jwt.sign({
+        _id: this._id 
+    },
+        process.env.ACCESS_TOKEN_SECRET,
+    { 
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+    } );
+  return token;
+};
 
 // Export the model to use it in other parts of the application
 export default User;

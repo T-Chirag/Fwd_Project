@@ -14,7 +14,7 @@ export const registerUser = async (req, res) => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 2);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create and save the new user
     const newUser = new User({ name, email, password: hashedPassword });
@@ -55,6 +55,8 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+User.meth
 
 // Get user details by ID
 export const getUserById = async (req, res) => {
