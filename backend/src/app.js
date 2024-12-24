@@ -2,19 +2,18 @@ import Express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 const app = Express();
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials :true,
-}))
 
-
-app.use(Express.json({limit :"16kb"}))
-
-app.use(Express.urlencoded({extended: true , limit: "16kb"}))
+app.use(cors()); // Enable CORS to allow requests from different origins
 
 app.use(Express.static("public"))
 
 app.use(cookieParser())
+
+// Apply middleware
+app.use(bodyParser.json()); // Parse JSON payloads in incoming requests
+
+app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded payloads
+
 
 
 

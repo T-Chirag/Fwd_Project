@@ -5,6 +5,7 @@ import cors from "cors"; // To handle Cross-Origin Resource Sharing
 import bodyParser from "body-parser"; // To parse incoming request bodies
 import connectDB from "./db/db.js"; // Import the database connection
 import userRoutes  from "../routes/userRoutes.js";  // Import user-related routes
+import {app} from "./app.js"; // Import the Express app
 
 // Load environment variables
 dotenv.config({
@@ -12,12 +13,6 @@ dotenv.config({
 });
 
 // Initialize the Express app
-const app = express();
-
-// Apply middleware
-app.use(cors()); // Enable CORS to allow requests from different origins
-app.use(bodyParser.json()); // Parse JSON payloads in incoming requests
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded payloads
 
 // Database connection
 (async () => {
