@@ -1,6 +1,7 @@
 // Import mongoose to define schemas and interact with MongoDB
 
 import mongoose from 'mongoose';
+import { avatarImage } from '../controllers/UserController';
 
 // Define a schema for the User model
 const userSchema = new mongoose.Schema({
@@ -21,6 +22,10 @@ const userSchema = new mongoose.Schema({
   rating:{
     type: Number,
     default: 0
+  },
+  avatarImage:{
+    type: String,
+    
   },
 
   // User's email address

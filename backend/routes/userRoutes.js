@@ -1,15 +1,10 @@
 import express from "express";
-import { registerUser, loginUser, getUserById } from "../src/controllers/UserController";
+import { registerUser, loginUser, getUserById } from "../src/controllers/UserController.js";
 
 const userRoutes = express.Router();
 
-// Route to register a new user
-userRoutes.post("/register", registerUser);
+userRoutes.route("/register").post(registerUser);
+userRoutes.route("/login").post(loginUser);
 
-// Route to login a user
-userRoutes.post("/login", loginUser);
-
-// Route to fetch user details (requires authentication)
-userRoutes.get("/:id", getUserById);
 
 export default userRoutes;
