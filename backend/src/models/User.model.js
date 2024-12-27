@@ -1,7 +1,8 @@
 // Import mongoose to define schemas and interact with MongoDB
 
+import { access } from 'fs';
 import mongoose from 'mongoose';
-import { avatarImage } from '../controllers/UserController';
+
 
 // Define a schema for the User model
 const userSchema = new mongoose.Schema({
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
   },
   avatarImage:{
     type: String,
-    
+
   },
 
   // User's email address
@@ -46,22 +47,27 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now   // Sets the default value to the current date and time
-  }
+  },
+
+  refreshTokens: [
+    {
+      token: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
+
+  accessToken: {
+    type: String,
+    required: false,
+  },
 });
 
 // Create a model using the schema
 const User = mongoose.model('User', userSchema);
 
-userSchema.methods.generateAuthToken = function() {
-  const token = jwt.sign({
-        _id: this._id 
-    },
-        process.env.ACCESS_TOKEN_SECRET,
-    { 
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-    } );
-  return token;
-};
+
 
 // Export the model to use it in other parts of the application
 export default User;

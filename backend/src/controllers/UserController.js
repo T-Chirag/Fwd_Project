@@ -2,6 +2,7 @@ import bcrypt from "bcrypt"; // For hashing passwords
 import jwt from "jsonwebtoken"; // For generating authentication tokens
 import User from "../models/User.model.js"; // Import the User model
 import { uploadOnCloudinary } from "../utils/cloudnary.js";
+import { ApiResponce } from "../utils/ApiResponce.js";
 
 // Register a new user
 const registerUser = async (req, res) => {
@@ -13,9 +14,13 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: "Email already registered" });
     }
+    if (!password) {
+      return res.status(400).json({ error: "Password is required" });
+  }
+  
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password,12);
 
     // Create and save the new user
     const newUser = new User({ name, username, email, password: hashedPassword });
@@ -33,11 +38,11 @@ const registerUser = async (req, res) => {
 // Login a user
 const loginUser = async (req, res) => {
   try {
-    const { loginKey, password } = req.body;
+    const { email ,username, password } = req.body;
 
     // Find the user by email or username
     const user = await User.findOne({
-      $or: [{ email: loginKey }, { username: loginKey }],
+      $or: [{ email }, { username }],
     });
 
     if (!user) {
@@ -51,42 +56,66 @@ const loginUser = async (req, res) => {
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ userId: user._id }, "secretKey", {
+    const accessToken = await jwt.sign({ userId: user._id }, "CrGt_127716", {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    const refreshToken = await jwt.sign({ userId: user._id },"CrGt_127728", { expiresIn: "7d" });
+    
+    const loggedInUser = await User.findById(user._id).select("-password -refreshtoken");
+
+    const options ={
+        httpOnly:true,
+        secure: true,
+    }
+
+    res
+    .status(200)
+    .cookie("accessToken",accessToken,options)
+    .cookie("RefreshToken",refreshToken,options)
+    .json(
+        new ApiResponce(
+          200,
+          {
+            user :loggedInUser,
+            accessToken,
+            refreshToken,
+          },
+          "User logged in successfully",
+        )
+    );
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Server error" });
   }
 };
 
-const avatarImage = async(req,res) => {
+
+//Lgout user
+const logoutUser = async(req,res) =>{
   try{
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-
-    if(!avatarLocalPath){
-      return res.status(400).json({error: "Avatar image is required"});
-    }
-    const avatar = await uploadOnCloudinary(avatarLocalPath)
-    if(!avatar){
-      return res.status(500).json({error: "Error uploading image"});
-    }
-
-    const user = await User.create({avatarImage: avatar.url});
-    const isUserCreated = await User.findById(user._id);
-    if(isUserCreated){
-      return res.status(500).json({error: "Error creating user"});
-    }
-
-  }catch(error){
-    console.error(error);
-    res.status(500).json({error: "Server error"});
+    const options ={
+      httpOnly:true,
+      secure: true,
   }
-}
+  
+   User.findByIdAndUpdate(
+    req.user._id,
+    {
+        $set: { refreshToken: undefined },
+    },
+    {
+        new: true,
+        
+    }
+   )
 
-
+   res.status(200).clearCookie("accessToken" ,options).clearCookie("refreshToken",options).json({message:"Logout successfully"});
+  }catch(error){
+    console.log(error);
+    res.status(500).json({error:"Server error"});
+  }
+};
 
 // Get user details by ID
 const getUserById = async (req, res) => {
@@ -103,4 +132,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-export{registerUser, loginUser, getUserById, avatarImage};
+export{registerUser, loginUser, getUserById, logoutUser};
