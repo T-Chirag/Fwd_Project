@@ -28,6 +28,7 @@ app.use(express.urlencoded({
     // Define routes
     app.use("/api/users", userRoutes); // Route for user-related operations
     app.use("/api/avatarimage",avatarImage); // Route for user-related operations
+    app.use("/api/wishlist",wishlistRoutes); // Route for wishlist-related operations
 
     // Start the server
     const PORT = process.env.PORT || 8000;

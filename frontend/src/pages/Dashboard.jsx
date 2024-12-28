@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('/api/users/me'); // Replace with your actual API endpoint
+        const response = await axios.get('/api/user'); // Replace with your actual API endpoint
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);

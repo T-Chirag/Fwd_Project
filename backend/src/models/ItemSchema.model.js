@@ -27,7 +27,8 @@ const itemSchema = new mongoose.Schema({
   },
   // Category of the item (e.g., electronics, furniture)
   category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
     required: true,
     trim: true
   },
@@ -37,18 +38,9 @@ const itemSchema = new mongoose.Schema({
     ref: 'User',                         // Refers to the User model
     required: true                       // Mandatory field
   },
-  // Date when the item was listed
-  listedAt: {
-    type: Date,
-    default: Date.now   // Default value is the current date and time
-  },
   price: {
     type: Number,
     required: true
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
   }
 });
 
