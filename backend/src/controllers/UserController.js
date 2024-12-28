@@ -90,8 +90,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-
-//Lgout user
+//Logout user
 const logoutUser = async(req,res) =>{
   try{
     const options ={
@@ -117,6 +116,47 @@ const logoutUser = async(req,res) =>{
   }
 };
 
+//refresh access token
+const refreshAccessToken = async(req,res) =>{
+  try {
+    const incomingRefreshToken = req.cookies.refreshToken;
+    if(!incomingRefreshToken){
+      return res.status(403).json({error:"Unauthorized"});
+    }
+    verifiedToken = jwt.verify(incomingRefreshToken,process.env.REFRESH_TOKEN_SECERT);
+
+    const temp_user = await User.findById(verifiedToken.userId)
+
+    if(!temp_user){
+      return res.status(403).json({error:"User not authenticated"});
+    }
+
+    if(temp_user.refreshToken !== incomingRefreshToken){
+      return res.status(403).json({error:"refresh token not valid"});
+
+    }
+
+    const options ={
+      httpOnly:true,
+      secure: true,
+    }
+    //generate new access token and refresh token
+    const newAccessToken = await jwt.sign({userId:temp_user._id},process.env.ACCESS_TOKEN_SECERT,{expiresIn:"1h"});
+    const newRefreshToken = await jwt.sign({userId:temp_user._id},process.env.REFRESH_TOKEN_SECERT,{expiresIn:"7d"});
+
+    return(
+      res
+      .status(200)
+      .cookie("accessToken",newAccessToken,options)
+      .cookie("RefreshToken",newRefreshToken,options)
+      .json({message:"Access token refreshed successfully"})  
+    )
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error:"Server error"});
+  }
+}
+
 // Get user details by ID
 const getUserById = async (req, res) => {
   try {
@@ -132,4 +172,4 @@ const getUserById = async (req, res) => {
   }
 };
 
-export{registerUser, loginUser, getUserById, logoutUser};
+export{registerUser, loginUser, getUserById, logoutUser , refreshAccessToken};
